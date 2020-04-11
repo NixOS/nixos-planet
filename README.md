@@ -22,3 +22,18 @@ link = https://example.com
 
 - send pull request
 
+## Developing
+
+- In one terminal window run:
+
+  ```
+  $ nix-shell --run "git ls-files | entr -s 'venus-planet planet.ini'"`
+  ```
+
+  Have some patience initial so that cache of blogs builds up.
+
+- In the other terminal window run:
+
+  ```
+  $ nix-shell --run "cd dist && python -m http.server"
+  ```
