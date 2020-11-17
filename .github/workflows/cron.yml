@@ -10,12 +10,15 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+
     - name: Installing Nix
-      uses: cachix/install-nix-action@v8
+      uses: cachix/install-nix-action@v12
+
     - name: Building planet.nixos.org
       run: nix-shell --run "venus-planet planet.ini && ./fix.sh"
+
     - name: Deploy to Netlify
-      uses: nwtgck/actions-netlify@v1.0.5
+      uses: nwtgck/actions-netlify@v1.1.11
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
