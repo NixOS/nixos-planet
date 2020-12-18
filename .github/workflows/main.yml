@@ -13,7 +13,7 @@ jobs:
         fetch-depth: 0
 
     - name: Installing Nix
-      uses: cachix/install-nix-action@v8
+      uses: cachix/install-nix-action@v12
 
     - name: Building planet.nixos.org
       run: nix-shell --run "venus-planet planet.ini && ./fix.sh"
