@@ -16,8 +16,16 @@ jobs:
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
+    - name: Installing nixFlakes
+      run: |
+        nix-env -iA nixpkgs.nixFlakes
+        echo 'experimental-features = nix-command flakes' | sudo tee -a /etc/nix/nix.conf
+        echo "$HOME/.nix-profile/bin" >> $GITHUB_PATH
+
     - name: Building planet.nixos.org
-      run: nix-shell --run "venus-planet planet.ini && ./fix.sh"
+      run: |
+        nix develop --command venus-planet planet.ini
+        nix develop --command ./fix.sh
 
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v1.1
